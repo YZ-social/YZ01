@@ -1,4 +1,4 @@
-![YZ.social](assets/yz.social.png)
+![YZ.social](./assets/yz.social.png)
 ---
 
 The YZ.social platform is described in the following whitepaper:

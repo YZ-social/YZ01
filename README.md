@@ -1,10 +1,6 @@
 ![YZ.social](https://github.com/YZ-social/YZ01/blob/main/assets/YZ.social.png)
 ---
 
-The YZ.social platform is described in the following whitepaper:
-
-https://docs.google.com/document/d/18ugyBfc1-ZY9x-inF0DO3nixyQ-oFbBev9g8Vvfdz3c/edit?tab=t.0
-
 >Although end-to-end encryption does not directly concern the U.S. Constitution, Justice Antonin Scalia provided a prescient guide for reasoning about its costs. He wrote in 1987 in Arizona v. Hicks, there is “nothing new in the realization that the Constitution sometimes insulates the criminality of a few in order to protect the privacy of us all.” 
 
 

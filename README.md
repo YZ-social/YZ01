@@ -1,7 +1,7 @@
 ![YZ.social](https://github.com/YZ-social/YZ01/blob/main/assets/YZ.social.png)
 ---
 
->Although end-to-end encryption does not directly concern the U.S. Constitution, Justice Antonin Scalia provided a prescient guide for reasoning about its costs. He wrote in 1987 in Arizona v. Hicks, there is “nothing new in the realization that the Constitution sometimes insulates the criminality of a few in order to protect the privacy of us all.” 
+>Although end-to-end encryption does not directly concern the U.S. Constitution, Justice Antonin Scalia provided a prescient guide for reasoning about its costs. He wrote in 1987 in [Arizona v. Hicks](https://supreme.justia.com/cases/federal/us/480/321/), there is “nothing new in the realization that the Constitution sometimes insulates the criminality of a few in order to protect the privacy of us all.” 
 
 
 YZ.social is an open source, permissionless, censorship resistant, end-to-end encrypted social network built on a fully decentralized network architecture.
@@ -32,6 +32,10 @@ The platform is built on top of the YZ.network, which is a private, permissionle
 
 https://libp2p.io/
 
+**Cap'n Proto Cerialization Protocol**
+
+https://capnproto.org/
+
 **IPFS**
 
 https://ipfs.github.io/helia/index.html
@@ -42,10 +46,6 @@ https://en.wikipedia.org/wiki/Signal_Protocol
 
 https://signal.org/docs/
 
-**Cap'n Proto Cerialization Protocol**
-
-https://capnproto.org/
-
 **Progressive Web App (implicit)**
 
 https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
@@ -55,13 +55,13 @@ https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
 
 TL;DR:
 
-The foundation of the YZ.social network is based upon an extended Chord Distributed Hash Table algorithm in parallel with the IPFS protocol. The Chord system is used for peer discovery and routing. The IPFS protocol is used for content addressing and storing data. All users have full access to both the Chord and IPFS systems. When a new user joins the network, they construct a unique public/private key pair and use it to join the Chord network. The public key is used to generate a unique address for the user as well as enable other users to send them encrypted messages. 
+The foundation of the YZ.social network is based upon an extended Chord Distributed Hash Table algorithm in parallel with the IPFS protocol. The Chord algorithm is used for peer discovery and routing. The IPFS protocol is used for content addressing and storing data. All users have full access to both the Chord and IPFS systems. Before a new user joins the network, they construct a unique public/private key pair and use it to join the Chord network. A 16-bit location value is concatenated to the public key to construct the node ID. This node ID isa unique address for the user and enables other users to communicate with them. 
 
-Users can only join the network by being sponsored by an existing user. This is done by the sponsoring user sending a message to the new user. The new user then uses the STUN server to connect to the network. Once connected, the user is inserted into the Chord network and can start sending and receiving messages from other users.
+Users can only join the network by being sponsored by an existing user. This is done by the sponsoring user sending a connection message to the new user. This message can be delivered via a QR code or NFC on a mobile device. The new user then uses the STUN server to connect to the network. Once connected, the user is inserted into the Chord network and can start sending and receiving messages from other users.
 
-Messages sent within the network are encrypted using the Signal Protocol.
+The message structure utilizes the Cap'n Proto cerialization protocol. These messages include text, images, videos, audio, and other data. Media payloads are stored in the IPFS system and the message contains a CID (Content Identifier) for the payload. When a user accesses this message they use the CID to retrieve the payload from the IPFS system. 
 
-The message structure utilizes the Cap'n Proto cerialization protocol.
+Messages sent within the network are encrypted end-to-endusing the Signal Protocol. 
 
 If a message contains a payload, such as an image, video, or audio, the payload is stored in the IPFS system. The message then contains a CID (Content Identifier) for the payload. When a user accesses this message they use the CID to retrieve the payload from the IPFS system. 
 
@@ -83,6 +83,17 @@ The extended Chord system includes a low-resolution 16 bit location value that i
 0060 Mexico
 
 Thus, the full address of a user would be the concatenation of the region code and the user's public key. The user is able to specify any region code they wish, though it is recommended that they use the one that best describes their location. 
+
+Users may have multiple accounts, each with a different region code. Each of these accounts will have a unique public/private key pair and thus a unique node ID. They enable a user to easily have different personas within the same network.
+
+## Message Protocol
+
+The message protocol is based upon the Cap'n Proto protocol described here:
+https://capnproto.org/
+
+The message protocol is used to send messages between users. It is a binary protocol that is designed to be fast and efficient. It is also designed to be easy to implement.
+
+Payload data is stored within the IPFS system, so the message protocol is used to send the CID of the payload. When a user receives a message, they use the CID to retrieve the payload from the IPFS system.
 
 ## IPFS
 
@@ -158,15 +169,6 @@ class YZSecureChannel {
 }
 
 ```
-
-## Message Protocol
-
-The message protocol is based upon the Cap'n Proto protocol described here:
-https://capnproto.org/
-
-The message protocol is used to send messages between users. It is a binary protocol that is designed to be fast and efficient. It is also designed to be easy to implement.
-
-Payload data is stored within the IPFS system, so the message protocol is used to send the CID of the payload. When a user receives a message, they use the CID to retrieve the payload from the IPFS system.
 
 
 # References
@@ -283,8 +285,6 @@ https://spatialwebfoundation.org/wp-content/uploads/2024/10/Spatial-Web-Foundati
 
 **Hyperspace**
 
-**Hyperspace**
-
 https://hyper.space
 
 Hyperspace is a breakthrough new generative browser powered by the world's largest peer-to-peer AI network.
@@ -316,16 +316,22 @@ https://snap.stanford.edu/class/cs224w-readings/watts98smallworld.pdf
 
 https://networksciencebook.com/chapter/0#introduction0
 
-# Security
+# Security and Privacy
 
 https://www.lawfaremedia.org/article/personal-data-in-the-cloud-is-under-siege.-end-to-end-encryption-is-our-most-powerful-defense
 
+https://groups.csail.mit.edu/mac/classes/6.805/articles/privacy/Privacy_brand_warr2.html
 
+https://email.projectliberty.io/policy-breakthrough-the-us-nears-a-historic-privacy-law
+
+https://www.eff.org/issues/privacy
+
+https://tech.eu/2025/02/10/new-roost-initiative-launches-at-paris-ai-summit-and-aims-to-secure-ai-with-open-source-safety-tools/
 
 
 # Communication protocol
 
-# Protocol Buffers
+## Protocol Buffers
 
 https://capnproto.org/
 
@@ -339,7 +345,7 @@ https://fuchsia.dev/fuchsia-src/concepts/fidl/life-of-a-handle
 
 https://sandstormorg/ - self hosted web apps.
 
-#Proof of Personhood
+# Proof of Personhood
 
 https://proofofhumanity.id/
 
@@ -360,5 +366,36 @@ libp2p is a modular networking framework bundled together as a full stack of pro
 
 https://github.com/libp2p/libp2p
 
-# Composition Prompt
+# Composition Prompts
+
+## Generate public/private key pair, region code, and user ID
+
+- Generate a 256 bit public/private key pair that is used for all communication.
+- Determine the user's region code. This is a 16 bit value that is typically used to identify the user's geographic region, though the user can choose any value they wish. Incorporating a region code into the user's ID enables the user to be routed to other users within the same region. It is likely that most of a given user's connections will also be within the same region. This provides a clustering effect within the Chord algorithm which reduces latency.
+- The user ID is this 16 bit region code concatenated with a 256 bit public key that is used to identify the node in the YZ.network.
+- The extended public key is stored in the user's local storage.
+
+## Chord Distributed Hash Table
+
+- Share connection information using a QR code or NFC on a mobile device between the sponsoring user and the new user. This shared connection information includes the each user ID, which is the extended public key of the sponsoring user.
+- The new user scans the QR code or uses NFC to read the connection information.
+- The new user uses the STUN server to establish a connection to the the sponsoring user and thus connects to the YZ.network.
+
+## Connection via STUN server
+
+- The new user uses the STUN server to establish a connection to the network.
+- The STUN server enables the new user to connect to the sponsoring user and thus connect to the YZ.network.
+
+## Insert into Chord network
+
+- The new user is inserted into the Chord network - the sponsoring user forwards the new user's connection information so that it can be added to the Chord network.
+- The ID/address of the new user is their extended public key.
+
+## Signal Protocol
+
+- The Signal Protocol is used for secure communication between users.
+- The Signal Protocol is used to encrypt all messages between users.
+- The Signal Protocol is used to decrypt all messages between users.
+- The Signal Protocol is used to generate the shared secret key between users.
+
 

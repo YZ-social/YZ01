@@ -1,3 +1,5 @@
+import { RegionMap } from './regionMap';
+
 class LocationDisplay {
     constructor() {
         // Check if RegionManager is available
@@ -8,7 +10,29 @@ class LocationDisplay {
         // Create instances of the classes
         this.regionManager = new window.RegionManagerModule.RegionManager();
         this.locationService = new window.RegionManagerModule.LocationService();
+        
+        // Initialize map
+        this.map = new RegionMap(this.regionManager);
+        this.initMap();
+        this.initRegionSelection();
         this.init();
+    }
+
+    initMap() {
+        this.map.initialize('map-container');
+    }
+
+    initRegionSelection() {
+        window.addEventListener('regionSelected', (event) => {
+            const { regionCode } = event.detail;
+            // Update region display
+            const regionCodeElement = document.getElementById('regionCode');
+            regionCodeElement.textContent = regionCode;
+
+            const regionName = this.getRegionName(regionCode);
+            const regionNameElement = document.getElementById('regionName');
+            regionNameElement.textContent = regionName;
+        });
     }
 
     async init() {
@@ -46,6 +70,9 @@ class LocationDisplay {
             const nearestAirportElement = document.getElementById('nearestAirport');
             nearestAirportElement.textContent = 
                 `${nearestLocationInfo.airport} (${nearestLocationInfo.airportCode}) - ${nearestLocationInfo.distance.toFixed(1)} km`;
+
+            // Set active region on map
+            this.map.setActiveRegion(region);
 
         } catch (error) {
             this.showError(error.message);

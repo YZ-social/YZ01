@@ -1,3 +1,8 @@
 node_modules/
 dist/
+.cache/
+*.log
+.DS_Store
+certs/
+985A-29E3
 .DS_Store

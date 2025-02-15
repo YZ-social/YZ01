@@ -1,74 +1,59 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-
-// Get the repository name from package.json or use a default
-const repoName = require('./package.json').name;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: {
-    regionManager: './src/regionManager.js',
-    locationDisplay: './src/locationDisplay.js'
-  },
+  entry: './src/index.js',
   output: {
-    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    library: {
-      name: '[name]',
-      type: 'var'
-    },
-    publicPath: process.env.NODE_ENV === 'production' 
-      ? `/${repoName}/`  // GitHub Pages path
-      : '/'              // Development path
+    filename: '[name].bundle.js',
+    clean: true
   },
-  mode: 'development',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+          loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.geojson$/,
+        type: 'json'
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      inject: 'head'
+      template: 'src/index.html'
     }),
-    new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-      process: 'process'
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'assets', to: 'assets' },
+        { 
+          from: path.resolve(__dirname, 'node_modules/leaflet/dist/images'),
+          to: path.resolve(__dirname, 'dist/images')
+        }
+      ]
     })
   ],
-  resolve: {
-    extensions: ['.js'],
-    fallback: {
-      "stream": false,
-      "crypto": require.resolve("crypto-browserify"),
-      "buffer": require.resolve("buffer/"),
-      "vm": false,
-      "assert": false,
-      "process": false
-    }
-  },
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
+      watch: true
     },
     compress: true,
-    port: 9000,
-    allowedHosts: 'all',
-    host: '0.0.0.0',
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-    }
+    port: 8080,
+    hot: true
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 10240000,
+    maxAssetSize: 10240000
   }
 }; 

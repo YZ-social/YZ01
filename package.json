@@ -1,31 +1,23 @@
 {
-  "name": "region-manager",
+  "name": "region-grid-map",
   "version": "1.0.0",
-  "description": "A geographic region management system for distributed networks",
-  "main": "dist/bundle.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "watch": "webpack --watch",
-    "test": "jest",
-    "start": "webpack serve --open",
-    "serve": "webpack serve --open",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
-    "crypto-browserify": "^3.12.0"
+    "leaflet": "^1.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.0",
-    "@babel/preset-env": "^7.22.0",
-    "babel-loader": "^9.1.2",
-    "gh-pages": "^6.3.0",
-    "html-webpack-plugin": "^5.6.3",
-    "jest": "^29.5.0",
-    "process": "^0.11.10",
-    "webpack": "^5.85.0",
-    "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^4.15.2"
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^6.11.0",
+    "html-webpack-plugin": "^5.3.2",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
   }
 }

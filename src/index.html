@@ -1,64 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location Info</title>
+    <meta charset="utf-8">
+    <title>Region Grid Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-bottom: 20px;
         }
-        .location-card {
-            background: #f5f5f5;
-            border-radius: 8px;
+        .location-info {
             padding: 20px;
-            margin: 20px 0;
+            font-family: Arial, sans-serif;
         }
-        .info-row {
-            display: flex;
+        .info-item {
             margin: 10px 0;
-        }
-        .info-label {
-            font-weight: bold;
-            width: 150px;
-        }
-        .info-value {
-            flex: 1;
-        }
-        .error {
-            color: red;
-            padding: 10px;
-            background: #fff0f0;
-            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <h1>Your Location Information</h1>
-    <div class="location-card" id="locationInfo">
-        <div class="info-row">
-            <div class="info-label">Coordinates:</div>
-            <div class="info-value" id="coordinates">Loading...</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Region Code:</div>
-            <div class="info-value" id="regionCode">Loading...</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Region Name:</div>
-            <div class="info-value" id="regionName">Loading...</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Nearest City:</div>
-            <div class="info-value" id="nearestCity">Loading...</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Nearest Airport:</div>
-            <div class="info-value" id="nearestAirport">Loading...</div>
-        </div>
+    <div id="map"></div>
+    <div id="info">
+        <p id="coordinates"></p>
+        <p id="country"></p>
+        <p id="countryCode"></p>
+        <p id="airport"></p>
     </div>
 </body>
 </html> 

@@ -73,14 +73,13 @@ The snapshot state of this app is regularly saved onto IPFS. The app and all of 
 
 The Chord system is used for peer discovery and routing. It is a Distributed Hash Table that uses a unique hash of the user's public key to determine its location in the network. 
 
-The extended Chord system includes a low-resolution 16 bit location value that is used to determine the geographic region of the user. This value is used to ensure that users that are geographically close to each other, who would also tend to be closer connected, will have fewer routing hops between them which dramatically reduces latency. Regions are defined by a single number. As an example, North America may be made up of 6 approximate regions:
+The extended Chord system includes a low-resolution 16 bit location value that is used to determine the geographic region of the user. This value is used to ensure that users that are geographically close to each other, who would also tend to be closer connected, will have fewer routing hops between them which dramatically reduces latency. Regions are defined by a single number, for now we are using the ISO 3166-1 alpha-2 country codes. We use an extended version of this list to include regions within countries. As an example, North America may be made up of 5 approximate regions:
 
-0010 Western Canada
-0020 Eastern Canada
-0030 Eastern United States
-0040 Western United States
-0050 Central United States
-0060 Mexico
+0011 Eastern Canada
+0012 Western Canada/Alaska
+0013 Western United States
+0014 Midwestern United States
+0015 Eastern United States
 
 Thus, the full address of a user would be the concatenation of the region code and the user's public key. The user is able to specify any region code they wish, though it is recommended that they use the one that best describes their location. 
 
